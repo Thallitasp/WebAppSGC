@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SGC.ApplicationCore.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +10,13 @@ namespace SGC.Infrastructure.Data
     {
         public ClienteContext(DbContextOptions<ClienteContext> options) : base(options)
         {
+        }
 
+        public DbSet<Cliente> Clientes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) //responsavel pela config do EntityFramework
+        {
+            modelBuilder.Entity<Cliente>().ToTable("Cliente");
         }
     }
 }
