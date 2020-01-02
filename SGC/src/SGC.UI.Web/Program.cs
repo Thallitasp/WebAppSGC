@@ -16,7 +16,7 @@ namespace SGC.UI.Web
     {
         public static void Main(string[] args)
         {
-            var host = CreateWebHostBuilder(args);
+            var host = BuildWebHost(args);
 
             using (var scope = host.Services.CreateScope())
             {
@@ -26,17 +26,17 @@ namespace SGC.UI.Web
                     var context = services.GetRequiredService<ClienteContext>();
                     DbInitializer.Initialize(context);
                 }
-                catch(Exception e)
+                catch (Exception ex)
                 {
-                    var logger = services.GetRequiredService<Logger<Program>>();
-                    logger.LogError(e, "Um erro ocorreu no método seeding do context.");
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "Um erro ocorreu no método seeding do contexto.");
                 }
             }
 
             host.Run();
         }
 
-        public static IWebHost CreateWebHostBuilder(string[] args) =>
+        public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .Build();
