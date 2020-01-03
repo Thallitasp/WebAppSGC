@@ -10,8 +10,8 @@ using SGC.Infrastructure.Data;
 namespace SGC.Infrastructure.Migrations
 {
     [DbContext(typeof(ClienteContext))]
-    [Migration("20200103132740_Inicial")]
-    partial class Inicial
+    [Migration("20200103184048_Inicio")]
+    partial class Inicio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -157,7 +157,7 @@ namespace SGC.Infrastructure.Migrations
                     b.HasOne("SGC.ApplicationCore.Entity.Cliente", "Cliente")
                         .WithMany("Contatos")
                         .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("SGC.ApplicationCore.Entity.Endereco", b =>
@@ -180,7 +180,7 @@ namespace SGC.Infrastructure.Migrations
                     b.HasOne("SGC.ApplicationCore.Entity.Cliente", "Cliente")
                         .WithMany("ProfissoesClientes")
                         .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("SGC.ApplicationCore.Entity.Profissao", "Profissao")
                         .WithMany("ProfissoesClientes")

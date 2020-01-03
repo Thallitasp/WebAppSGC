@@ -155,7 +155,7 @@ namespace SGC.Infrastructure.Migrations
                     b.HasOne("SGC.ApplicationCore.Entity.Cliente", "Cliente")
                         .WithMany("Contatos")
                         .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("SGC.ApplicationCore.Entity.Endereco", b =>
@@ -178,7 +178,7 @@ namespace SGC.Infrastructure.Migrations
                     b.HasOne("SGC.ApplicationCore.Entity.Cliente", "Cliente")
                         .WithMany("ProfissoesClientes")
                         .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("SGC.ApplicationCore.Entity.Profissao", "Profissao")
                         .WithMany("ProfissoesClientes")

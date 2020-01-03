@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SGC.Infrastructure.Migrations
 {
-    public partial class Inicial : Migration
+    public partial class Inicio : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -75,7 +75,7 @@ namespace SGC.Infrastructure.Migrations
                         column: x => x.ClienteId,
                         principalTable: "Cliente",
                         principalColumn: "ClienteId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,7 +117,7 @@ namespace SGC.Infrastructure.Migrations
                         column: x => x.ClienteId,
                         principalTable: "Cliente",
                         principalColumn: "ClienteId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ProfissaoCliente_Profissao_ClienteId",
                         column: x => x.ClienteId,
