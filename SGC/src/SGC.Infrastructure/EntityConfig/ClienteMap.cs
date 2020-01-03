@@ -11,7 +11,7 @@ namespace SGC.Infrastructure.EntityConfig
             builder.HasKey(c => c.ClienteId);
 
             builder
-                 .HasMany(c => c.Contatos)
+                .HasMany(c => c.Contatos)
                 .WithOne(c => c.Cliente)
                 .HasForeignKey(c => c.ClienteId)
                 .HasPrincipalKey(c => c.ClienteId)
