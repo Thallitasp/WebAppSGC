@@ -92,6 +92,28 @@ namespace SGC.Infrastructure.Data
                 .HasColumnType("varchar(400)");
 
             #endregion
+
+            #region Configurações de Profissao Cliente
+            modelBuilder.Entity<ProfissaoCliente>()
+                .HasKey(c => c.Id);
+
+            modelBuilder.Entity<ProfissaoCliente>()
+                .HasOne(pc => pc.Cliente)
+                .WithMany(c => c.ProfissoesClientes)
+                .HasForeignKey(c => c.ClienteId);
+
+            modelBuilder.Entity<ProfissaoCliente>()
+                .HasOne(pc => pc.Profissao)
+                .WithMany(c => c.ProfissoesClientes)
+                .HasForeignKey(c => c.ClienteId);
+            #endregion
+
+            #region Configurações Menu
+            modelBuilder.Entity<Menu>()
+                .HasMany(c => c.SubMenu)
+                .WithOne()
+                .HasForeignKey(x => x.MenuId);
+            #endregion
         }
     }
 }

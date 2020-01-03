@@ -70,15 +70,22 @@ namespace SGC.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Bairro");
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
 
-                    b.Property<string>("Cep");
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasColumnType("varchar(15)");
 
                     b.Property<int>("ClienteId");
 
-                    b.Property<string>("Logradouro");
+                    b.Property<string>("Logradouro")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
 
-                    b.Property<string>("Referencia");
+                    b.Property<string>("Referencia")
+                        .HasColumnType("varchar(400)");
 
                     b.HasKey("EnderecoId");
 
@@ -88,17 +95,40 @@ namespace SGC.Infrastructure.Migrations
                     b.ToTable("Endereco");
                 });
 
+            modelBuilder.Entity("SGC.ApplicationCore.Entity.Menu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("MenuId");
+
+                    b.Property<string>("Titulo");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MenuId");
+
+                    b.ToTable("Menu");
+                });
+
             modelBuilder.Entity("SGC.ApplicationCore.Entity.Profissao", b =>
                 {
                     b.Property<int>("ProfissaoId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CBO");
+                    b.Property<string>("CBO")
+                        .IsRequired()
+                        .HasColumnType("varchar(10)");
 
-                    b.Property<string>("Descricao");
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("varchar(1000)");
 
-                    b.Property<string>("Nome");
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(400)");
 
                     b.HasKey("ProfissaoId");
 
@@ -113,13 +143,9 @@ namespace SGC.Infrastructure.Migrations
 
                     b.Property<int>("ClienteId");
 
-                    b.Property<int?>("ProfissaoId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
-
-                    b.HasIndex("ProfissaoId");
 
                     b.ToTable("ProfissaoCliente");
                 });
@@ -140,6 +166,13 @@ namespace SGC.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("SGC.ApplicationCore.Entity.Menu", b =>
+                {
+                    b.HasOne("SGC.ApplicationCore.Entity.Menu")
+                        .WithMany("SubMenu")
+                        .HasForeignKey("MenuId");
+                });
+
             modelBuilder.Entity("SGC.ApplicationCore.Entity.ProfissaoCliente", b =>
                 {
                     b.HasOne("SGC.ApplicationCore.Entity.Cliente", "Cliente")
@@ -149,7 +182,8 @@ namespace SGC.Infrastructure.Migrations
 
                     b.HasOne("SGC.ApplicationCore.Entity.Profissao", "Profissao")
                         .WithMany("ProfissoesClientes")
-                        .HasForeignKey("ProfissaoId");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
